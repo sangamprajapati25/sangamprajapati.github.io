@@ -431,20 +431,241 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
+
+  /* CERTIFICATIONS */
+  #certifications { padding: 8rem 8vw; }
+  .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; margin-top:3rem; }
+  .cert-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.8rem; position:relative; overflow:hidden; transition:all .35s; }
+  .cert-card:hover { transform:translateY(-6px); border-color:rgba(0,200,255,.5); box-shadow:0 20px 45px rgba(0,0,0,.3); }
+  .cert-icon { font-size:2rem; margin-bottom:1rem; }
+  .cert-status { display:inline-block; font:600 .65rem 'JetBrains Mono',monospace; color:var(--accent2); letter-spacing:.12em; margin-bottom:.8rem; }
+  .cert-title { font-family:'Orbitron',monospace; font-size:.95rem; margin-bottom:.55rem; }
+  .cert-desc { color:rgba(232,244,255,.55); font-size:.85rem; line-height:1.7; }
+
+  /* DEVOPS ROADMAP */
+  #roadmap { padding:8rem 8vw; }
+  .roadmap { max-width:1000px; margin:3rem auto 0; position:relative; }
+  .roadmap::before { content:''; position:absolute; left:24px; top:0; bottom:0; width:1px; background:linear-gradient(var(--accent),var(--accent2),transparent); }
+  .roadmap-step { display:grid; grid-template-columns:50px 1fr; gap:1.5rem; margin-bottom:1.5rem; position:relative; }
+  .roadmap-number { width:50px; height:50px; border:1px solid var(--accent); border-radius:50%; display:grid; place-items:center; background:var(--deep); color:var(--accent2); font:700 .8rem 'JetBrains Mono',monospace; z-index:1; box-shadow:0 0 25px rgba(30,111,255,.18); }
+  .roadmap-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.4rem 1.6rem; transition:all .35s; }
+  .roadmap-card:hover { transform:translateX(5px); border-color:rgba(30,111,255,.5); }
+  .roadmap-card h3 { font-family:'Orbitron',monospace; font-size:.95rem; margin-bottom:.45rem; }
+  .roadmap-card p { color:rgba(232,244,255,.55); font-size:.86rem; line-height:1.7; }
+  .roadmap-tags { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.8rem; }
+
+  /* MOBILE MENU */
+  .menu-toggle { display:none; background:transparent; border:0; cursor:pointer; width:42px; height:42px; padding:9px; }
+  .menu-toggle span { display:block; height:2px; margin:5px 0; background:var(--accent2); transition:transform .3s,opacity .3s; }
+  .mobile-menu { display:none; }
+
+  /* EXTRA MOTION */
+  .skill-card, .learn-card, .project-card, .cert-card, .stat-card, .roadmap-card { will-change:transform; }
+  .hero-tag::after { content:'_'; animation:blink 1s steps(1) infinite; }
+  .float { animation:float 5s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  @keyframes pulseGlow { 0%,100% { box-shadow:0 0 20px rgba(30,111,255,.18); } 50% { box-shadow:0 0 40px rgba(0,200,255,.3); } }
+  .btn-primary { animation:pulseGlow 3s ease-in-out infinite; }
+
   /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
+    .menu-toggle { display:block; z-index:102; }
+    .nav-links {
+      position:fixed; top:70px; left:0; right:0; display:flex; flex-direction:column;
+      gap:0; padding:1rem 1.5rem 1.5rem; background:rgba(1,6,20,.96);
+      backdrop-filter:blur(18px); border-bottom:1px solid var(--border);
+      transform:translateY(-120%); opacity:0; pointer-events:none; transition:transform .35s ease,opacity .35s ease;
+    }
+    .nav-links.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+    .nav-links li { width:100%; }
+    .nav-links a { display:block; padding:.85rem .2rem; font-size:.8rem; }
+    .menu-toggle.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity:0; }
+    .menu-toggle.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
     #about { grid-template-columns: 1fr; gap: 3rem; }
     .about-img-wrap { order: -1; }
     .about-avatar { width: 180px; height: 180px; font-size: 3rem; }
     .ring1 { width: 220px; height: 220px; }
     .ring2 { width: 260px; height: 260px; }
     .ring3 { width: 300px; height: 300px; }
+    .hero-btns { flex-wrap:wrap; }
+    .projects-grid, .learning-grid, .skills-grid, .cert-grid { grid-template-columns:1fr; }
+    .roadmap::before { left:20px; }
+    .roadmap-step { grid-template-columns:42px 1fr; gap:1rem; }
+    .roadmap-number { width:42px; height:42px; }
     .resume-header { flex-direction: column; gap: 1rem; }
     .resume-contact { text-align: left; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  }
+
+/* ===== EXTRA PREMIUM ANIMATIONS ===== */
+
+/* Floating tech glow */
+@keyframes techFloat {
+  0%, 100% { transform: translate3d(0,0,0) rotate(0deg); }
+  50% { transform: translate3d(0,-14px,0) rotate(2deg); }
+}
+
+/* Neon breathing glow */
+@keyframes neonPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(0,200,255,.25)); }
+  50% { filter: drop-shadow(0 0 28px rgba(0,200,255,.75)); }
+}
+
+/* Gradient text movement */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Typing cursor */
+@keyframes blinkCursor {
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+
+/* Scan line */
+@keyframes scanLine {
+  0% { transform: translateY(-120%); opacity: 0; }
+  15% { opacity: .7; }
+  85% { opacity: .7; }
+  100% { transform: translateY(120%); opacity: 0; }
+}
+
+/* Shimmer across cards */
+@keyframes shimmer {
+  0% { transform: translateX(-130%); }
+  100% { transform: translateX(130%); }
+}
+
+/* Button border glow */
+@keyframes borderPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(0,200,255,0); }
+  50% { box-shadow: 0 0 24px rgba(0,200,255,.28); }
+}
+
+/* Apply premium effects */
+.hero-name span {
+  background-size: 200% 200%;
+  animation: gradientFlow 7s ease infinite, neonPulse 3s ease-in-out infinite;
+}
+
+.hero-tag::after {
+  content: " _";
+  animation: blinkCursor .9s steps(1) infinite;
+}
+
+.about-avatar {
+  animation: techFloat 5s ease-in-out infinite, neonPulse 4s ease-in-out infinite;
+}
+
+.skill-card,
+.learn-card,
+.project-card,
+.stat-card,
+.resume-container,
+.contact-link {
+  will-change: transform;
+}
+
+.skill-card::after,
+.learn-card::after,
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+  transform: skewX(-18deg);
+  pointer-events: none;
+}
+
+.skill-card:hover::after,
+.learn-card:hover::after,
+.project-card:hover::before {
+  animation: shimmer .8s ease;
+}
+
+.btn-primary {
+  animation: borderPulse 2.8s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -30%;
+  width: 20%;
+  height: 140%;
+  background: rgba(255,255,255,.25);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+}
+
+.btn-primary:hover::after {
+  left: 120%;
+}
+
+.section-title {
+  transition: transform .4s ease, text-shadow .4s ease;
+}
+
+.section-title:hover {
+  transform: translateX(5px);
+  text-shadow: 0 0 24px rgba(0,200,255,.25);
+}
+
+/* Cyber scan effect on project thumbnails */
+.project-thumb::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+  box-shadow: 0 0 15px var(--accent2);
+  animation: scanLine 3.5s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Floating learning cards */
+.learn-card:nth-child(1) { animation: techFloat 6s ease-in-out infinite; }
+.learn-card:nth-child(2) { animation: techFloat 7s ease-in-out .5s infinite; }
+.learn-card:nth-child(3) { animation: techFloat 6.5s ease-in-out 1s infinite; }
+.learn-card:nth-child(4) { animation: techFloat 7.5s ease-in-out 1.5s infinite; }
+
+/* Roadmap nodes, if present */
+.roadmap-node,
+.timeline-dot {
+  animation: neonPulse 2.5s ease-in-out infinite;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -463,9 +684,14 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#learning">Learning</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#resume">Resume</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -544,51 +770,58 @@
   <div class="skills-grid">
     <div class="skill-card reveal">
       <div class="skill-icon">🌐</div>
-      <div class="skill-name">HTML & CSS</div>
-      <div class="skill-level">Advanced</div>
-      <div class="skill-bar"><div class="skill-fill" style="--w:0.9;transform:scaleX(0);" data-fill="0.9"></div></div>
+      <div class="skill-name">Networking & CCNA</div>
+      <div class="skill-level">Advanced Foundation</div>
+      <div class="skill-bar"><div class="skill-fill" data-fill="0.9"></div></div>
     </div>
+
     <div class="skill-card reveal">
-      <div class="skill-icon">⚡</div>
-      <div class="skill-name">JavaScript</div>
-      <div class="skill-level">Intermediate</div>
-      <div class="skill-bar"><div class="skill-fill" data-fill="0.75"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">⚛️</div>
-      <div class="skill-name">React.js</div>
+      <div class="skill-icon">🐧</div>
+      <div class="skill-name">Linux Administration</div>
       <div class="skill-level">Intermediate</div>
       <div class="skill-bar"><div class="skill-fill" data-fill="0.7"></div></div>
     </div>
+
     <div class="skill-card reveal">
-      <div class="skill-icon">🐍</div>
-      <div class="skill-name">Python</div>
-      <div class="skill-level">Intermediate</div>
-      <div class="skill-bar"><div class="skill-fill" data-fill="0.68"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🗄️</div>
-      <div class="skill-name">SQL / Databases</div>
+      <div class="skill-icon">🪟</div>
+      <div class="skill-name">Windows Server</div>
       <div class="skill-level">Intermediate</div>
       <div class="skill-bar"><div class="skill-fill" data-fill="0.65"></div></div>
     </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-name">Virtualization</div>
+      <div class="skill-level">Intermediate</div>
+      <div class="skill-bar"><div class="skill-fill" data-fill="0.65"></div></div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">Cloud Computing</div>
+      <div class="skill-level">Beginner</div>
+      <div class="skill-bar"><div class="skill-fill" data-fill="0.45"></div></div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-level">Beginner</div>
+      <div class="skill-bar"><div class="skill-fill" data-fill="0.3"></div></div>
+    </div>
+
     <div class="skill-card reveal">
       <div class="skill-icon">🔧</div>
       <div class="skill-name">Git & GitHub</div>
-      <div class="skill-level">Advanced</div>
-      <div class="skill-bar"><div class="skill-fill" data-fill="0.85"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🎨</div>
-      <div class="skill-name">UI/UX Design</div>
-      <div class="skill-level">Intermediate</div>
-      <div class="skill-bar"><div class="skill-fill" data-fill="0.6"></div></div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">☁️</div>
-      <div class="skill-name">Cloud & Deployment</div>
       <div class="skill-level">Beginner</div>
-      <div class="skill-bar"><div class="skill-fill" data-fill="0.45"></div></div>
+      <div class="skill-bar"><div class="skill-fill" data-fill="0.4"></div></div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">DevOps Fundamentals</div>
+      <div class="skill-level">Beginner</div>
+      <div class="skill-bar"><div class="skill-fill" data-fill="0.3"></div></div>
     </div>
   </div>
 </section>
@@ -679,10 +912,27 @@
   </div>
 </section>
 
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal" style="text-align:center; margin-bottom:1rem;">
+    <span class="section-label">// 05. CERTIFICATIONS & TRAINING</span>
+    <h2 class="section-title">My <span class="highlight">Credentials</span></h2>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card reveal"><div class="cert-icon">🌐</div><div class="cert-status">COMPLETED TRAINING</div><div class="cert-title">CCNA / Networking Training</div><div class="cert-desc">Hands-on networking study covering IP addressing, subnetting, routing, switching, VLANs, OSPF, EIGRP, NAT and troubleshooting.</div></div>
+    <div class="cert-card reveal"><div class="cert-icon">☁️</div><div class="cert-status">FOUNDATION</div><div class="cert-title">Google Cloud — Generative AI Fundamentals</div><div class="cert-desc">Cloud and generative-AI fundamentals included in my technical learning journey.</div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🐧</div><div class="cert-status">IN PROGRESS</div><div class="cert-title">Linux Administration</div><div class="cert-desc">Building practical Linux administration skills through command-line labs, permissions, services, storage and troubleshooting.</div></div>
+    <div class="cert-card reveal"><div class="cert-icon">⚙️</div><div class="cert-status">IN PROGRESS</div><div class="cert-title">Cloud & DevOps Learning</div><div class="cert-desc">Developing practical knowledge of cloud infrastructure, automation, Git, Python and DevOps workflows.</div></div>
+  </div>
+</section>
+
+<!-- DEVOPS ROADMAP -->
+
+
 <!-- RESUME -->
 <section id="resume">
   <div class="reveal" style="text-align:center; margin-bottom:3rem;">
-    <span class="section-label">// 05. RESUME</span>
+    <span class="section-label">// 07. RESUME</span>
     <h2 class="section-title">My <span class="highlight">Resume</span></h2>
   </div>
   <div class="resume-container reveal">
@@ -768,7 +1018,7 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="reveal">
-    <span class="section-label">// 06. GET IN TOUCH</span>
+    <span class="section-label">// 08. GET IN TOUCH</span>
     <h2 class="section-title">Let's <span class="highlight">Connect</span></h2>
     <p class="contact-desc">
       I'm always open to new opportunities, collaborations, or just a good tech conversation. 
@@ -796,7 +1046,7 @@ sangam-prajapati-876995248
 <!-- FOOTER -->
 <footer>
   <div>Designed & Built by <span class="footer-glow">SANGAM Prajapati</span></div>
-  <div>© 2025 · All Rights Reserved</div>
+  <div>© 2026 · All Rights Reserved</div>
 </footer>
 
 <script>
@@ -946,6 +1196,35 @@ const learnObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 learnCards.forEach(c => learnObserver.observe(c));
 
+// --- Mobile Navigation ---
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuToggle.classList.toggle('open', open);
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+}
+
+// --- Subtle 3D Card Hover ---
+if (window.matchMedia('(pointer:fine)').matches) {
+  document.querySelectorAll('.skill-card, .learn-card, .project-card, .cert-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      card.style.transform = `perspective(700px) rotateX(${-y*3}deg) rotateY(${x*3}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+}
+
 // Active nav
 const sections = document.querySelectorAll('section[id]');
 window.addEventListener('scroll', () => {
@@ -955,6 +1234,83 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--accent2)' : '';
   });
 });
+
+/* ===== Mouse-follow 3D card animation ===== */
+const tiltItems = document.querySelectorAll('.skill-card, .learn-card, .project-card, .stat-card');
+
+tiltItems.forEach(card => {
+  card.addEventListener('mousemove', e => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateX = ((y / rect.height) - 0.5) * -5;
+    const rotateY = ((x / rect.width) - 0.5) * 5;
+
+    card.style.transform =
+      `perspective(900px) translateY(-6px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+/* ===== Cursor trail ===== */
+const trail = [];
+const trailCount = 8;
+
+for (let i = 0; i < trailCount; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'cursor-trail';
+  document.body.appendChild(dot);
+  trail.push({ el: dot, x: 0, y: 0 });
+}
+
+const trailStyle = document.createElement('style');
+trailStyle.textContent = `
+.cursor-trail {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent2);
+  pointer-events: none;
+  z-index: 9997;
+  opacity: .45;
+  box-shadow: 0 0 10px var(--accent2);
+}
+`;
+document.head.appendChild(trailStyle);
+
+document.addEventListener('mousemove', e => {
+  trail[0].x = e.clientX;
+  trail[0].y = e.clientY;
+});
+
+function animateTrail() {
+  for (let i = 1; i < trail.length; i++) {
+    trail[i].x += (trail[i-1].x - trail[i].x) * 0.25;
+    trail[i].y += (trail[i-1].y - trail[i].y) * 0.25;
+  }
+
+  trail.forEach((item, i) => {
+    item.el.style.left = item.x + 'px';
+    item.el.style.top = item.y + 'px';
+    item.el.style.opacity = String((trail.length - i) / trail.length * .45);
+    const size = Math.max(2, 6 - i * .5);
+    item.el.style.width = size + 'px';
+    item.el.style.height = size + 'px';
+  });
+
+  requestAnimationFrame(animateTrail);
+}
+
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  animateTrail();
+}
+
 </script>
 </body>
 </html>
