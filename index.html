@@ -372,6 +372,14 @@
     color: var(--accent2);
   }
   .download-btn-wrap { text-align: center; margin-top: 2rem; }
+  .resume-list { list-style: none; padding: 0; }
+.resume-list li {
+  position: relative; padding-left: 1.2rem; margin-bottom: 0.4rem;
+  font-size: 0.88rem; line-height: 1.7; color: rgba(232,244,255,0.6);
+}
+.resume-list li::before {
+  content: '▹'; position: absolute; left: 0; color: var(--accent2);
+}
 
   /* CONTACT */
   #contact { padding: 8rem 8vw; text-align: center; }
